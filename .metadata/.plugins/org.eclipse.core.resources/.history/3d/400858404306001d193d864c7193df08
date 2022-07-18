@@ -1,0 +1,43 @@
+package com.xoriant.ecart.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xoriant.ecart.dao.ProductRepo;
+import com.xoriant.ecart.dto.ProductDTO;
+import com.xoriant.ecart.exception.InputUserException;
+import com.xoriant.ecart.model.Brand;
+import com.xoriant.ecart.model.Category;
+import com.xoriant.ecart.model.Product;
+
+import lombok.extern.slf4j.Slf4j;
+
+@Service
+@Slf4j
+public class ProductServiceImpl implements ProductService {
+
+	@Autowired
+	private ProductRepo productRepo;
+
+	private Category category;
+
+	private Brand brand;
+
+	private Product product;
+
+	private static final String NEW_CATEGORY_ADDED = "New Category Added Succesfully !";
+
+	@Override
+	public String addNewCategory(ProductDTO productDTO) {
+
+		if (productDTO.getCategoryName().isBlank() || productDTO.getCategoryName().isEmpty()) {
+			throw new InputUserException();
+		}
+		product = new Product();
+		product.setCategoryName(productDTO.getCategoryName());
+		productRepo.save(product);
+		log.info("addNewCategory() called");
+		return;
+	}
+
+}

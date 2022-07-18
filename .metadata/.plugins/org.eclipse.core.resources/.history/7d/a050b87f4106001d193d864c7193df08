@@ -1,0 +1,20 @@
+package com.xoriant.ecart.service;
+
+import org.springframework.stereotype.Service;
+
+import com.xoriant.ecart.exception.InputUserException;
+import com.xoriant.ecart.model.Category;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+	@Override
+	public String addNewCategory(Category category) {
+	
+		if(category.getCategoryName().isEmpty() || category.getCategoryName().isBlank()) {
+			throw new InputUserException();
+		}
+		return null;
+	}
+
+}

@@ -1,0 +1,22 @@
+package com.xoriant.ecart.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Component
+@Data
+@AllArgsConstructor
+public class InputUserException extends RuntimeException {
+	/**
+	* 
+	*/
+	private static final long serialVersionUID = 1L;
+
+	private final String errorName = "Please check Input Fileds";
+
+	private final HttpStatus errorMsg = HttpStatus.BAD_REQUEST;
+
+}

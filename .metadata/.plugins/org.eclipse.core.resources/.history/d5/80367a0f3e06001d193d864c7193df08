@@ -1,0 +1,71 @@
+package com.xoriant.ecart.service;
+
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.xoriant.ecart.dao.ProductRepo;
+import com.xoriant.ecart.model.Brand;
+import com.xoriant.ecart.model.Category;
+import com.xoriant.ecart.model.Product;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+	@Autowired
+	private ProductRepo productRepo;
+
+	@Override
+	public Product addNewProduct(Product product) {
+
+		return productRepo.save(product);
+	}
+
+	@Override
+	public Product updateProduct(Product product) {
+		Optional<Product> existingProduct = productRepo.findById(product.getProductId());
+		if (!existingProduct.isPresent()) {
+			throw new NoSuchElementException();
+		}
+
+		Product updateProduct = productRepo.findById(product.getProductId()).orElse(null);
+		updateProduct.setProductId(product.getProductId());
+		updateProduct.setKeywords(product.getKeywords());
+		updateProduct.setPrice(product.getPrice());
+		updateProduct.setProductName(product.getProductName());
+		updateProduct.setQuantity(product.getQuantity());
+
+		Brand existingBrand = new Brand();
+		existingBrand.setBrandId(product.getBrand().getBrandId());
+		existingBrand.setBrandName(product.getBrand().getBrandName());
+		updateProduct.setBrand(existingBrand);
+
+		Category existingCategory = new Category();
+		existingCategory.setCategoryId(product.getCategory().getCategoryId());
+		existingCategory.setCategoryName(product.getCategory().getCategoryName());
+		updateProduct.setCategory(existingCategory);
+
+		return productRepo.save(updateProduct);
+	}
+
+	@Override
+	public String addNewListsOfProduct(List<Product> prodLists) {
+
+		return null;
+	}
+
+	@Override
+	public String updateListsOfProduct(List<Product> prodLists) {
+
+		return null;
+	}
+
+	@Override
+	public void deleteProduct(int productId) {
+
+	}
+
+}

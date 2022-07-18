@@ -1,0 +1,16 @@
+package com.xoriant.ecart.service;
+
+import java.util.List;
+
+import com.xoriant.ecart.dto.ProductDTO;
+
+public interface ProductService {
+
+	String addNewCategory(ProductDTO productDTO);
+
+	String addNewListsCategories(List<ProductDTO> productDTO);
+
+	String updateCategory(ProductDTO productDTO);
+
+	String updateListsCategory(ProductDTO productDTO);
+}

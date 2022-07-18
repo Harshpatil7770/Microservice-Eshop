@@ -1,0 +1,5 @@
+package com.xoriant.ecart.exception;
+
+public class GlobalExceptionHandeler {
+
+}

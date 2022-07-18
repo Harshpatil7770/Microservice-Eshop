@@ -1,0 +1,29 @@
+package com.xoriant.ecart.model;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Table(name="products")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Product {
+
+	
+	private int productId;
+	
+	private String productName;
+	
+	private double price;
+	
+	private int quantity;
+	
+	private String keywords;
+	
+	private Brand brand;
+}
