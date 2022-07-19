@@ -28,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 			throw new InputUserException();
 		}
 		Product productResult = findByProductName(productName).orElse(null);
+		if(productResult==null) {
+			throw new ElementNotFound();
+		}
 		order.setProductName(productResult.getProductName());
 		double totalAmount = quantity * productResult.getPrice();
 		order.setTotalAmount(totalAmount);

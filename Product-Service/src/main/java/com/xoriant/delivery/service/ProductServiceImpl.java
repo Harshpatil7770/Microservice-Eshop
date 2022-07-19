@@ -42,9 +42,15 @@ public class ProductServiceImpl implements ProductService {
 		product.setProductId(productDTO.getProductId());
 
 		Optional<Brand> brandResult = findByBrandId(brandId);
+		if (!brandResult.isPresent()) {
+			throw new ElementNotFound();
+		}
 		product.setBrandName(brandResult.get().getBrandName());
 
 		Optional<Category> categoryResult = findByCategoryId(categoryId);
+		if (!categoryResult.isPresent()) {
+			throw new ElementNotFound();
+		}
 		product.setCategoryName(categoryResult.get().getCategoryName());
 
 		product.setKeywords(productDTO.getKeywords());
@@ -86,9 +92,15 @@ public class ProductServiceImpl implements ProductService {
 			product.setProductId(newProduct.getProductId());
 
 			Optional<Brand> brandResult = findByBrandId(brandId);
+			if (!brandResult.isPresent()) {
+				throw new ElementNotFound();
+			}
 			product.setBrandName(brandResult.get().getBrandName());
 
 			Optional<Category> categoryResult = findByCategoryId(categoryId);
+			if (!categoryResult.isPresent()) {
+				throw new ElementNotFound();
+			}
 			product.setCategoryName(categoryResult.get().getCategoryName());
 
 			product.setKeywords(newProduct.getKeywords());
@@ -114,9 +126,15 @@ public class ProductServiceImpl implements ProductService {
 		updateProduct.setProductId(productDTO.getProductId());
 
 		Optional<Brand> brandResult = findByBrandId(brandId);
+		if (!brandResult.isPresent()) {
+			throw new ElementNotFound();
+		}
 		updateProduct.setBrandName(brandResult.get().getBrandName());
 
 		Optional<Category> categoryResult = findByCategoryId(categoryId);
+		if (!categoryResult.isPresent()) {
+			throw new ElementNotFound();
+		}
 		updateProduct.setCategoryName(categoryResult.get().getCategoryName());
 
 		updateProduct.setKeywords(productDTO.getKeywords());
@@ -146,9 +164,15 @@ public class ProductServiceImpl implements ProductService {
 			updateProduct.setProductId(newProduct.getProductId());
 
 			Optional<Brand> brandResult = findByBrandId(brandId);
+			if (!brandResult.isPresent()) {
+				throw new ElementNotFound();
+			}
 			updateProduct.setBrandName(brandResult.get().getBrandName());
 
 			Optional<Category> categoryResult = findByCategoryId(categoryId);
+			if (!categoryResult.isPresent()) {
+				throw new ElementNotFound();
+			}
 			updateProduct.setCategoryName(categoryResult.get().getCategoryName());
 
 			updateProduct.setKeywords(newProduct.getKeywords());
@@ -242,5 +266,4 @@ public class ProductServiceImpl implements ProductService {
 		return existingProduct;
 	}
 
-	
 }
