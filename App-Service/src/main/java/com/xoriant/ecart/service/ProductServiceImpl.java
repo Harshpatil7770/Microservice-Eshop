@@ -1,11 +1,11 @@
 package com.xoriant.ecart.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.xoriant.ecart.dao.CategoryRepo;
 import com.xoriant.ecart.dao.ProductRepo;
 import com.xoriant.ecart.dto.ProductDTO;
 import com.xoriant.ecart.exception.InputUserException;
@@ -13,89 +13,42 @@ import com.xoriant.ecart.model.Brand;
 import com.xoriant.ecart.model.Category;
 import com.xoriant.ecart.model.Product;
 
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@Slf4j
 public class ProductServiceImpl implements ProductService {
 
 	@Autowired
 	private ProductRepo productRepo;
 
-	@Autowired
-	private CategoryRepo categoryRepo;
-
-	private Category category;
-
-	private Brand brand;
-
 	private Product product;
 
-	private static final String NEW_CATEGORY_ADDED = "New Category Added Succesfully !";
+	private BrandServiceImpl brandServiceImpl;
 
-	private static final String NEW_LISTS_OF_CATEGORY_ADDED = "New Lists Of Category Added Succesfully !";
+	private CategoryServiceImpl categoryServiceImpl;
 
-	private static final String UPDATE_EXISTING_CATEGORY = "Update Existing Category Succesfully !";
+	private static final String NEW_PRODUCT_ADDED = "New Product Added SuccesfullY !";
 
 	@Override
-	public String addNewCategory(ProductDTO productDTO) {
-
-		if (productDTO.getCategoryName().isBlank() || productDTO.getCategoryName().isEmpty()) {
+	public String addNewProduct(ProductDTO productDTO, int brandId, int categoryId) {
+		if (productDTO.getProductName().isEmpty() || productDTO.getProductName().isBlank()) {
 			throw new InputUserException();
 		}
-		category = new Category();
-		category.setCategoryName(productDTO.getCategoryName().toUpperCase());
-		categoryRepo.save(category);
-		log.info("addNewCategory() called");
-		return NEW_CATEGORY_ADDED;
-	}
+		product = new Product();
+		product.setProductId(productDTO.getProductId());
 
-	@Override
-	public String addNewListsCategories(List<ProductDTO> productDTO) {
-		for (ProductDTO newProduct : productDTO) {
-			if (newProduct.getCategoryName().isBlank() || newProduct.getCategoryName().isEmpty()) {
-				throw new InputUserException();
-			}
-		}
+		brandServiceImpl = new BrandServiceImpl();
+		Optional<Brand> brandResult = brandServiceImpl.findByBrandId(brandId);
+		product.setBrandName(brandResult.get().getBrandName());
 
-		for (ProductDTO newProduct : productDTO) {
-			category = new Category();
-			category.setCategoryName(newProduct.getCategoryName().toUpperCase());
-			categoryRepo.save(category);
-		}
-		log.info("addNewListsCategories() called");
-		return NEW_LISTS_OF_CATEGORY_ADDED;
-	}
+		categoryServiceImpl = new CategoryServiceImpl();
+		Optional<Category> categoryResult = categoryServiceImpl.findByCategoryId(categoryId);
+		product.setCategoryName(categoryResult.get().getCategoryName());
 
-	@Override
-	public String updateCategory(ProductDTO productDTO) {
-
-		if (productDTO.getCategoryName().isBlank() || productDTO.getCategoryName().isEmpty()) {
-			throw new InputUserException();
-		}
-		category = new Category();
-		category.setCategoryName(productDTO.getCategoryName().toUpperCase());
-		categoryRepo.save(category);
-		log.info("updateCategory() called");
-		return UPDATE_EXISTING_CATEGORY;
-	}
-
-	@Override
-	public String updateListsCategory(ProductDTO productDTO) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void deleteCategory(int categoryId) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public Category findByCategoryName(String categoryName) {
-		// TODO Auto-generated method stub
-		return null;
+		product.setKeywords(productDTO.getKeywords());
+		product.setPrice(productDTO.getPrice());
+		product.setProductName(productDTO.getProductName());
+		product.setQuantity(productDTO.getQuantity());
+		productRepo.save(product);
+		return NEW_PRODUCT_ADDED;
 	}
 
 }

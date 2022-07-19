@@ -1,21 +1,35 @@
 package com.xoriant.ecart.service;
 
-import java.util.List;
-
 import com.xoriant.ecart.dto.ProductDTO;
-import com.xoriant.ecart.model.Category;
 
 public interface ProductService {
 
-	String addNewCategory(ProductDTO productDTO);
+	String addNewProduct(ProductDTO productDTO,int brandId,int categoryId);
 
-	String addNewListsCategories(List<ProductDTO> productDTO);
-
-	String updateCategory(ProductDTO productDTO);
-
-	String updateListsCategory(ProductDTO productDTO);
+//	String addNewListsProducts(List<ProductDTO> productDTO);
+//
+//	String updateProduct(ProductDTO productDTO);
+//
+//	String updateListsProduct(List<ProductDTO> productDTO);
+//
+//	void deleteProduct(int productId);
+//
+//	Optional<Product> findByProductName(String productName);
+//
+//	Optional<Product> findByProductId(int productId);
+//
+//	List<Product> findAllProducts();
+//
+//	List<Product> findByBrandName(String brandName);
+//
+//	List<Product> findByCategoryName(String categoryName);
+//
+//	List<Product> findByPriceInBetween(double minPrice, double maxPrice);
+//
+//	List<Product> findByPriceGreaterThan(double minPrice);
+//
+//	List<Product> findByPriceLessThan(double minPrice);
 	
-	void deleteCategory(int categoryId);
-	
-	Category findByCategoryName(String categoryName);
+//	Optional<Brand> findByBrandId(int brandId);
+
 }

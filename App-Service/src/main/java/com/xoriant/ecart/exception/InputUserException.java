@@ -14,7 +14,9 @@ public class InputUserException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
 
+	// always declare filed with private and final in exception class.
 	private String errorMsg;
 
 	private String errorCode;
+
 }

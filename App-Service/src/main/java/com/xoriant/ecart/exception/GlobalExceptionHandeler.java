@@ -11,6 +11,11 @@ public class GlobalExceptionHandeler extends ResponseEntityExceptionHandler {
 
 	@ExceptionHandler(InputUserException.class)
 	public ResponseEntity<String> inputUserExceptionHandeler(InputUserException exception) {
-		return new ResponseEntity<String>("Please check Input Fileds !", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Please check Input Fileds !", HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(ElementNotFound.class)
+	public ResponseEntity<String> elementNotFoundException(ElementNotFound elementNotFound) {
+		return new ResponseEntity<>("Element Not Present in Database !", HttpStatus.OK);
 	}
 }
